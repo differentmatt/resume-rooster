@@ -22,7 +22,14 @@ export default function Home() {
     console.log('Function call received:', call);
     // If update_resume, update the resume content
     if (call.function.name === 'update_resume') {
-      const args = JSON.parse(call.function.arguments);
+      let args;
+      try {
+        args = JSON.parse(call.function.arguments);
+      } catch (e) {
+        console.error("Invalid JSON in function arguments:", e);
+        return "Parsing error: Invalid JSON format";
+      }
+
       setResumeContent(args.content);
       localStorage.setItem("resumeBuilder_resumeContent", args.content);
       return 'Resume updated successfully';
