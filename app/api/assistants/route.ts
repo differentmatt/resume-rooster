@@ -12,7 +12,10 @@ export async function GET() {
     return Response.json({ assistantId });
   } catch (error) {
     logger.error("Error retrieving assistant:", { error });
-    throw error;
+    return Response.json(
+      { error: "Failed to retrieve or create assistant" },
+      { status: 500 }
+    );
   }
 }
 
