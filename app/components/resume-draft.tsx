@@ -24,35 +24,44 @@ const ResumeDraft = ({ content }: ResumeDraftProps) => {
       } as React.CSSProperties}
     >
       <style jsx global>{`
-        .markdown-body p,
-        .markdown-body ul,
-        .markdown-body ol,
-        .markdown-body h1,
-        .markdown-body h2,
-        .markdown-body h3 {
-          margin-top: 0.5em !important;
-          margin-bottom: 0.5em !important;
+        .resume-markdown.markdown-body p,
+        .resume-markdown.markdown-body ul,
+        .resume-markdown.markdown-body ol,
+        .resume-markdown.markdown-body h1,
+        .resume-markdown.markdown-body h2,
+        .resume-markdown.markdown-body h3 {
+          margin-top: 0.5em;
+          margin-bottom: 0.5em;
         }
-        .markdown-body li + li {
-          margin-top: 0.1em !important;
+        .resume-markdown.markdown-body li + li {
+          margin-top: 0.1em;
         }
         /* Ensure bullets are visible */
-        .markdown-body ul {
-          list-style-type: disc !important;
-          padding-left: 2em !important;
+        .resume-markdown.markdown-body ul {
+          list-style-type: disc;
+          padding-left: 2em;
         }
-        .markdown-body ul ul {
-          list-style-type: circle !important;
+        .resume-markdown.markdown-body ul ul {
+          list-style-type: circle;
         }
-        .markdown-body ul ul ul {
-          list-style-type: square !important;
+        .resume-markdown.markdown-body ul ul ul {
+          list-style-type: square;
         }
         /* Ensure numbered lists are visible */
-        .markdown-body ol {
-          list-style-type: decimal !important;
-          padding-left: 2em !important;
+        .resume-markdown.markdown-body ol {
+          list-style-type: decimal;
+          padding-left: 2em;
         }
       `}</style>
+      
+      <div
+        className="markdown-body resume-markdown"
+        style={{
+          // existing inline styles, if any
+        }}
+      >
+        {/* rest of the component */}
+      </div>
       <Markdown>{content}</Markdown>
     </div>
   );
