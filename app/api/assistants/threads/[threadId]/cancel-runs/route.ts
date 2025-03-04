@@ -14,13 +14,27 @@ export async function POST(
 
     // Cancel any runs that are still active
     let cancelledCount = 0;
+    // Cancel any runs that are still active
+    let cancelledCount = 0;
+    let failedCount = 0;
     for (const run of activeRuns.data) {
       if (['queued', 'in_progress', 'requires_action'].includes(run.status)) {
-        await openai.beta.threads.runs.cancel(threadId, run.id);
-        cancelledCount++;
-        logger.info(`Cancelled run ${run.id} in thread ${threadId}`);
+        try {
+          await openai.beta.threads.runs.cancel(threadId, run.id);
+          cancelledCount++;
+          logger.info(`Cancelled run ${run.id} in thread ${threadId}`);
+        } catch (err) {
+          failedCount++;
+          logger.error(`Failed to cancel run ${run.id} in thread ${threadId}`, { error: err });
+        }
       }
     }
+
+    return NextResponse.json({
+      message: `Cancelled ${cancelledCount} active runs${failedCount > 0 ? `, failed to cancel ${failedCount} runs` : ''}`,
+      cancelledCount,
+      failedCount
+    });
 
     return NextResponse.json({
       message: `Cancelled ${cancelledCount} active runs`,
