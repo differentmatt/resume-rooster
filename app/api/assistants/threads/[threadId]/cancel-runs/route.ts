@@ -14,8 +14,6 @@ export async function POST(
 
     // Cancel any runs that are still active
     let cancelledCount = 0;
-    // Cancel any runs that are still active
-    let cancelledCount = 0;
     let failedCount = 0;
     for (const run of activeRuns.data) {
       if (['queued', 'in_progress', 'requires_action'].includes(run.status)) {

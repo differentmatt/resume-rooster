@@ -14,8 +14,8 @@ export type CircularReplacerFn = (key: string, value: unknown) => unknown;
 
 // Default to INFO in production, DEBUG in development
 const DEFAULT_LOG_LEVEL = process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG;
-const CURRENT_LOG_LEVEL = Number(process.env.LOG_LEVEL ?? DEFAULT_LOG_LEVEL);
-// console.log('CURRENT_LOG_LEVEL', CURRENT_LOG_LEVEL);
+const rawLogLevel = Number(process.env.LOG_LEVEL);
+const CURRENT_LOG_LEVEL = isNaN(rawLogLevel) ? DEFAULT_LOG_LEVEL : rawLogLevel;
 
 /**
  * Format a log message with timestamp and level

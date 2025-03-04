@@ -17,7 +17,7 @@ const ResumeDraft = ({ content }: ResumeDraftProps) => {
 
   return (
     <div
-      className="markdown-body"
+      className="markdown-body resume-markdown"
       style={{
         fontSize: '0.85rem',
         '--markdown-spacing': '0.5em',
@@ -53,15 +53,6 @@ const ResumeDraft = ({ content }: ResumeDraftProps) => {
           padding-left: 2em;
         }
       `}</style>
-      
-      <div
-        className="markdown-body resume-markdown"
-        style={{
-          // existing inline styles, if any
-        }}
-      >
-        {/* rest of the component */}
-      </div>
       <Markdown>{content}</Markdown>
     </div>
   );

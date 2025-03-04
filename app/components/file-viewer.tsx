@@ -98,25 +98,13 @@ const FileViewer = ({
       const fileToDelete = files.find(file => file.fileId === fileId);
       if (!fileToDelete) return;
 
-      // Remove the file from the list immediately for better UX
-      const updatedFiles = files.filter(file => file.fileId !== fileId);
-      setFiles(updatedFiles);
-      setHasNotifiedParent(false); // Reset notification flag when files change
-
       // Perform the actual deletion
-      const response = await fetch(`/api/assistants/files`, {
+      const response = await fetch(`/api/assistants/files/${fileId}`, {
         method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ fileId }),
       });
 
       if (!response.ok) {
         console.error('Error deleting file from server:', fileId);
-        // If deletion fails, add the file back to the list
-        setFiles(prev => [...prev, fileToDelete]);
-        setHasNotifiedParent(false); // Reset notification flag when files change
         throw new Error('Failed to delete file');
       }
 
