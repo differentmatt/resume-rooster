@@ -35,8 +35,9 @@ export async function POST(
     });
 
     return NextResponse.json({
-      message: `Cancelled ${cancelledCount} active runs`,
-      cancelledCount
+      message: `Cancelled ${cancelledCount} active runs${failedCount > 0 ? `, failed to cancel ${failedCount} runs` : ''}`,
+      cancelledCount,
+      failedCount
     });
   } catch (error) {
     logger.error("Error cancelling runs:", { error: error as Error });
