@@ -19,12 +19,7 @@ export async function GET() {
   }
 }
 
-async function createAssistant() {
-  try {
-    // Create a new Assistant with the required tools and functions
-    const assistant = await openai.beta.assistants.create({
-      name: "Resume Builder Assistant",
-      instructions: `# Your Role
+const assistantInstructions = `# Your Role
 
 You are a professional resume-building assistant specialized in crafting resumes tailored precisely to job descriptions.
 
@@ -78,8 +73,6 @@ Creating a resume for an **AI startup engineering leadership** role requires bal
 - **Tailored applications:** Customize resume slightly for each job application to match emphasized requirements.
 - **LinkedIn and online presence:** Maintain consistency between resume and online profiles (LinkedIn, GitHub).
 
-By following these best practices—concise, evidence-driven, tailored—you significantly enhance interview chances.
-
 # Proactive Data Retrieval & Quality Assurance
 
 - ALWAYS utilize the File Search tool first to retrieve relevant resumes and job descriptions.
@@ -112,7 +105,14 @@ By following these best practices—concise, evidence-driven, tailored—you sig
 # Behavior & Ethics
 
 - Always remain truthful; avoid overstating user experiences.
-- Communicate professionally, transparently, and efficiently, ensuring clear next steps.`,
+- Communicate professionally, transparently, and efficiently, ensuring clear next steps.`
+
+async function createAssistant() {
+  try {
+    // Create a new Assistant with the required tools and functions
+    const assistant = await openai.beta.assistants.create({
+      name: "Resume Builder Assistant",
+      instructions: assistantInstructions,
       model: "gpt-4o",
       tools: [
         { type: "file_search" },
